@@ -57,10 +57,10 @@ The current invite `https://discord.gg/N3jy7qHt` has **expired** (Discord API: "
 index.html
 404.html
 assets/css/site.css
-assets/img/logo.png        downloaded from Gamma (1200px)
+assets/img/logo.jpg        downloaded from Gamma (1200x800; JPEG since the PNG is 1.2 MB)
 assets/img/logo.webp       WebP copy, served via <picture>
 favicon.svg                serif "C&L" monogram, indigo
-CNAME                      crudandlogic.com
+CNAME                      crudandlogic.com (added at cutover so the preview URL keeps working)
 robots.txt                 allow all + sitemap reference
 sitemap.xml                single URL
 .nojekyll                  serve files as-is
@@ -77,7 +77,7 @@ Note: with Pages serving the repo root, `docs/superpowers/` is publicly reachabl
 - `<title>`: "C.R.U.D & Logic: Software Mentorship & Development"
 - Meta description: the hero lead, without the "Start Learning / Get a Quote" junk the Gamma export added.
 - `link rel="canonical"` → `https://crudandlogic.com/`
-- Open Graph + Twitter `summary_large_image` tags, image `https://crudandlogic.com/assets/img/logo.png`.
+- Open Graph + Twitter `summary_large_image` tags, image `https://crudandlogic.com/assets/img/logo.jpg`.
 - `lang="en"`, `theme-color` `#faf8f4`.
 
 ## Accessibility

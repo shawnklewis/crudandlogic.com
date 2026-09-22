@@ -7,6 +7,7 @@
   <meta name="description" content="Create, Read, Update, Delete — and the Business Logic that makes it real. A boutique software mentorship and development service. Follow the flow of good decisions, from fundamentals to architecture.">
   <link rel="canonical" href="https://crudandlogic.com/">
   <meta name="theme-color" content="#faf8f4">
+  <meta name="color-scheme" content="light">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://crudandlogic.com/">
   <meta property="og:title" content="C.R.U.D &amp; Logic">
@@ -43,7 +44,7 @@
     </nav>
   </header>
 
-  <main id="main">
+  <main id="main" tabindex="-1">
     <section class="hero" id="top">
       <div class="container hero-grid">
         <div>
@@ -57,7 +58,7 @@
         </div>
         <picture class="hero-art">
           <source srcset="assets/img/logo.webp" type="image/webp">
-          <img src="assets/img/logo.jpg" width="1200" height="800" alt="C.R.U.D &amp; Logic illustration: a developer at a laptop beside a code window">
+          <img src="assets/img/logo.jpg" width="1200" height="800" fetchpriority="high" alt="C.R.U.D &amp; Logic illustration: a developer at a laptop beside a code window">
         </picture>
       </div>
     </section>
@@ -68,7 +69,7 @@
           <p class="kicker">The problem</p>
           <h2>Why Guidance Matters</h2>
         </div>
-        <ul class="grid grid-3">
+        <ol class="grid grid-3" role="list">
           <li class="card">
             <span class="marker">1</span>
             <h3>Tutorial Traps</h3>
@@ -84,7 +85,7 @@
             <h3>Professional Divide</h3>
             <p>The internet is full of noise, but we provide direct mentorship that bridges the gap between hobbyist coding and professional development.</p>
           </li>
-        </ul>
+        </ol>
       </div>
     </section>
 
@@ -94,7 +95,7 @@
           <p class="kicker">The path</p>
           <h2>From CRUD to Architecture</h2>
         </div>
-        <ol class="grid grid-3 steps">
+        <ol class="grid grid-3 steps" role="list">
           <li class="card">
             <span class="marker">I.</span>
             <h3>Basic CRUD</h3>
@@ -123,7 +124,7 @@
           <p class="kicker">Services</p>
           <h2>What We Do</h2>
         </div>
-        <ul class="grid grid-2">
+        <ul class="grid grid-2" role="list">
           <li class="card">
             <h3>Mentorship &amp; Training</h3>
             <p>Personalized guidance to level up your development skills through hands-on learning and direct feedback.</p>
@@ -150,7 +151,7 @@
           <p class="kicker">Mentorship</p>
           <h2>Software Mentorship</h2>
         </div>
-        <ul class="grid grid-2 features">
+        <ul class="grid grid-2 features" role="list">
           <li class="feature">
             <h3>Learn Modern Tech</h3>
             <p>Master C#, .NET, and clean coding practices that make your skills immediately valuable.</p>
@@ -212,7 +213,7 @@
           <p class="kicker">Our approach</p>
           <h2>Our Difference</h2>
         </div>
-        <ul class="grid grid-4 features">
+        <ul class="grid grid-4 features" role="list">
           <li class="feature">
             <h3>Understanding</h3>
             <p>You don't just build it — you comprehend why it works.</p>
@@ -240,7 +241,7 @@
           <p class="kicker">Contact</p>
           <h2>Let's Connect</h2>
         </div>
-        <ul class="grid grid-3">
+        <ul class="grid grid-3" role="list">
           <li class="card contact-card">
             <h3>Book a Free Discovery Call</h3>
             <p>Let's discuss your goals and see if we're the right fit for your development journey or project needs.</p>
@@ -283,6 +284,12 @@
       }
       toggle.addEventListener("click", function () { setOpen(toggle.getAttribute("aria-expanded") !== "true"); });
       links.addEventListener("click", function (e) { if (e.target.closest("a")) setOpen(false); });
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape" && toggle.getAttribute("aria-expanded") === "true") {
+          setOpen(false);
+          toggle.focus();
+        }
+      });
       document.getElementById("year").textContent = new Date().getFullYear();
     })();
   </script>

@@ -22,4 +22,4 @@ Push to `main`. GitHub Pages publishes within a minute or two.
 
 ## Domain
 
-DNS is on Cloudflare, DNS-only (grey cloud): apex A/AAAA records → GitHub Pages IPs, `www` CNAME → `kurtnelle.github.io`. Custom domain is set by the `CNAME` file and in repo Settings → Pages. If you turn on the Cloudflare proxy, use SSL mode **Full (strict)**, never Flexible.
+DNS is on Cloudflare, DNS-only (grey cloud): apex A/AAAA records → GitHub Pages IPs, `www` CNAME → `kurtnelle.github.io`. Custom domain is set by the `CNAME` file (added at cutover) and in repo Settings → Pages. If you turn on the Cloudflare proxy, use SSL mode **Full (strict)**, never Flexible.

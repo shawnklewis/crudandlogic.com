@@ -22,6 +22,7 @@ h1, h2, h3 { margin: 0; font-family: var(--serif); font-weight: 500; line-height
 p { margin: 0; }
 [id] { scroll-margin-top: var(--header-h); }
 :focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+main:focus { outline: none; }
 
 .container { width: 100%; max-width: var(--maxw); margin: 0 auto; padding: 0 24px; }
 @media (max-width: 600px) { .container { padding: 0 16px; } }
@@ -83,7 +84,7 @@ p { margin: 0; }
 
 .steps li { position: relative; }
 @media (min-width: 961px) {
-  .steps li:not(:last-child)::after { content: "\2192"; position: absolute; top: 50%; right: -17px; transform: translateY(-50%); padding: 2px 0; background: var(--bg); font-family: var(--serif); line-height: 1; color: var(--accent); }
+  .steps li:not(:last-child)::after { content: "\2192" / ""; position: absolute; top: 50%; right: -17px; transform: translateY(-50%); padding: 2px 0; background: var(--bg); font-family: var(--serif); line-height: 1; color: var(--accent); }
 }
 
 .pull { max-width: 46em; margin: 56px 0 0; padding: 8px 0 8px 28px; border-left: 3px solid var(--accent); }

@@ -4,6 +4,7 @@ Run from the repo root:  python tests/check_site.py
 """
 import re
 import unittest
+import xml.etree.ElementTree as ET
 from html.parser import HTMLParser
 from pathlib import Path
 from urllib.parse import unquote, urlsplit
@@ -44,6 +45,8 @@ class Page(HTMLParser):
         self.ids, self.links, self.headings, self.imgs = set(), [], [], []
         self.meta, self.comments, self.text = {}, [], []
         self.title, self.lang, self.canonical = "", None, None
+        self.anchors = []
+        self._last_comment = None
         self._in_title, self._skip = False, 0
 
     def handle_starttag(self, tag, attrs):
@@ -53,6 +56,8 @@ class Page(HTMLParser):
         for key in ("href", "src", "srcset"):
             if a.get(key):
                 self.links.append(a[key].split(",")[0].split()[0])
+        if tag == "a" and a.get("href"):
+            self.anchors.append((a["href"], self._last_comment))
         if re.fullmatch(r"h[1-6]", tag):
             self.headings.append(int(tag[1]))
         if tag == "img":
@@ -82,6 +87,7 @@ class Page(HTMLParser):
 
     def handle_comment(self, data):
         self.comments.append(data.strip())
+        self._last_comment = data.strip()
 
     @property
     def plain(self):
@@ -111,10 +117,20 @@ class SiteFiles(unittest.TestCase):
 
     def test_no_gamma_references(self):
         offenders = [str(p.relative_to(ROOT)) for p in ROOT.rglob("*")
-                     if p.suffix in (".html", ".css", ".svg", ".xml", ".txt")
+                     if p.is_file() and p.suffix in (".html", ".css", ".svg", ".xml", ".txt", ".md", ".js")
                      and "docs" not in p.parts and ".superpowers" not in p.parts
+                     and ".git" not in p.parts
                      and "gamma.app" in p.read_text(encoding="utf-8")]
         self.assertEqual(offenders, [])
+
+    def test_sitemap_is_valid_xml(self):
+        ns = {"sm": "http://www.sitemaps.org/schemas/sitemap/0.9"}
+        root = ET.parse(ROOT / "sitemap.xml").getroot()
+        locs = root.findall(".//sm:loc", ns)
+        self.assertEqual(len(locs), 1)
+        self.assertEqual(locs[0].text, "https://crudandlogic.com/")
+        robots = (ROOT / "robots.txt").read_text(encoding="utf-8")
+        self.assertIn("Sitemap: https://crudandlogic.com/sitemap.xml", robots)
 
 
 class IndexPage(unittest.TestCase):
@@ -166,7 +182,10 @@ class IndexPage(unittest.TestCase):
         self.assertIn("mailto:contact@crudandlogic.com", links)
         self.assertIn("mailto:contact@crudandlogic.com?subject=Discovery%20call", links)
         self.assertTrue(any(u.startswith("https://discord.gg/") for u in links))
-        self.assertIn("DISCORD_INVITE", self.page.comments)
+        bad = [h for h, c in self.page.anchors
+               if h.startswith("https://discord.gg/") and c != "DISCORD_INVITE"]
+        self.assertEqual(bad, [])
+        self.assertTrue(any(h.startswith("https://discord.gg/") for h, c in self.page.anchors))
 
     def test_hero_ctas(self):
         self.assertIn("#mentorship", self.page.links)

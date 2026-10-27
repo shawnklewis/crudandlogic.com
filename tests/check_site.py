@@ -140,7 +140,7 @@ class IndexPage(unittest.TestCase):
     def test_head_metadata(self):
         p = self.page
         self.assertEqual(p.lang, "en")
-        self.assertIn("C.R.U.D & Logic", p.title)
+        self.assertIn("CRUD & Logic", p.title)
         self.assertTrue(p.meta.get("description"))
         self.assertNotIn("Get a Quote", p.meta["description"])
         self.assertEqual(p.canonical, "https://crudandlogic.com/")

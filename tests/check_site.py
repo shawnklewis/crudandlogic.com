@@ -17,7 +17,7 @@ REQUIRED_FILES = [
     "robots.txt", "sitemap.xml", ".nojekyll", "README.md",
 ]
 SECTION_IDS = ["top", "idea", "pipeline", "documents", "language", "architecture",
-               "interface", "ai", "observation", "progress", "deep-dive", "contact"]
+               "execution", "interface", "ai", "observation", "progress", "deep-dive", "contact"]
 COPY = ["Create, Read, Update, Delete", "CURRENT PROTOTYPE", "PLANNED ARCHITECTURE",
         "FURTHER EXPLORATION", "one long-lived process per pipeline",
         "Only CRUD workers touch the database", "deterministic query engine",

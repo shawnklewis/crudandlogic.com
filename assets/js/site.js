@@ -23,7 +23,7 @@
   // Keep all copy present. Scroll only changes emphasis and position, never visibility.
   if (typeof Element.prototype.animate === 'function') {
     panels.forEach(panel => {
-      const targets = panel.querySelectorAll(':scope > .section-label, :scope > .split, :scope > h2, :scope > .wide-intro, :scope > .principles, :scope > .simulation, :scope > .translation, :scope > .system-map, :scope > .ai-flow, :scope > .replay-diagram, :scope > .roadmap, :scope > .deep-grid');
+      const targets = panel.querySelectorAll(':scope > .section-label, :scope > .split, :scope > h2, :scope > .wide-intro, :scope > .principles, :scope > .simulation, :scope > .translation, :scope > .system-map, :scope > .hardware-map, :scope > .transformation-bridge, :scope > .ai-flow, :scope > .replay-diagram, :scope > .roadmap, :scope > .deep-grid');
       targets.forEach((target, i) => {
         const animation = target.animate([
           { transform: `translateY(${i % 2 ? 42 : 26}px)`, opacity: .72 },

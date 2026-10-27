@@ -93,3 +93,7 @@ html:not(.motion-ready) *,html:not(.motion-ready) *:before,html:not(.motion-read
 
 /* Leave clear space below footer content for the fixed animation control. */
 .site-footer{padding-bottom:calc(110px + env(safe-area-inset-bottom,0px))}
+
+/* A pair of conventional equal-pitch gears mesh beneath the opening thought. */
+.idea-heading-art{position:relative;min-width:0;align-self:stretch;padding-bottom:132px}.idea-heading-art h2{position:relative;z-index:1}.gears-scene{position:absolute;left:0;bottom:-2px;width:245px;max-width:90%;height:132px;opacity:.43;pointer-events:none}.gears-scene svg{display:block;width:100%;height:100%;overflow:visible}.gear-wheel{fill:#0c1a200d;stroke:var(--mint);stroke-width:1.9;stroke-linejoin:round;stroke-linecap:round;transform-origin:0 0}.gear-counterclockwise{stroke:var(--orange);animation:gear-turn-counter 12s linear infinite}.gear-clockwise{animation:gear-turn-clock 12s linear infinite}.gear-wheel circle{fill:none;stroke-width:1.5}.gear-wheel path:not(:first-child){stroke-width:1.5}@keyframes gear-turn-clock{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}@keyframes gear-turn-counter{from{transform:rotate(15deg)}to{transform:rotate(-345deg)}}
+@media(max-width:760px){.idea-heading-art{padding-bottom:116px}.gears-scene{height:112px;width:215px;opacity:.35}}

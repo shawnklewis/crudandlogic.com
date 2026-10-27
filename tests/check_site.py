@@ -16,26 +16,12 @@ REQUIRED_FILES = [
     "assets/img/logo.webp", "assets/img/logo.jpg", "favicon.svg",
     "robots.txt", "sitemap.xml", ".nojekyll", "README.md",
 ]
-SECTION_IDS = ["top", "why", "path", "services", "mentorship",
-               "development", "difference", "contact"]
-COPY = [
-    "Tutorial Traps", "Architecture Gaps", "Professional Divide",
-    "creating a fragile foundation",
-    "Basic CRUD", "System Design",
-    "think like a systems developer",
-    "Mentorship & Training", "Application Development", "Code Reviews",
-    "MVPs & Architecture",
-    "Learn Modern Tech", "Weekly Check-ins", "Real Projects", "Professional Feedback",
-    "C# and .NET 10 for robust backend systems",
-    "Blazor for interactive web interfaces",
-    "SQL Server or PostgreSQL for reliable data storage",
-    "Comprehensive automated testing",
-    "Scalable systems that grow with your needs",
-    "Understanding", "Best Practices", "Documentation", "Team Integration",
-    "not just code writers",
-    "Book a Free Discovery Call", "Join Our Mentorship Community",
-    "Start Your Development Project",
-]
+SECTION_IDS = ["top", "idea", "pipeline", "documents", "language", "architecture",
+               "interface", "ai", "observation", "progress", "deep-dive", "contact"]
+COPY = ["Create, Read, Update, Delete", "CURRENT PROTOTYPE", "PLANNED ARCHITECTURE",
+        "FURTHER EXPLORATION", "one long-lived process per pipeline",
+        "Only CRUD workers touch the database", "deterministic query engine",
+        "Only verifiers may dispose", "DESIGNED, NOT IMPLEMENTED"]
 EXTERNAL = re.compile(r"^(https?:|mailto:|tel:|data:|#|//)")
 
 
@@ -180,7 +166,6 @@ class IndexPage(unittest.TestCase):
     def test_contact_links(self):
         links = self.page.links
         self.assertIn("mailto:contact@crudandlogic.com", links)
-        self.assertIn("mailto:contact@crudandlogic.com?subject=Discovery%20call", links)
         self.assertTrue(any(u.startswith("https://discord.gg/") for u in links))
         bad = [h for h, c in self.page.anchors
                if h.startswith("https://discord.gg/") and c != "DISCORD_INVITE"]
@@ -188,8 +173,25 @@ class IndexPage(unittest.TestCase):
         self.assertTrue(any(h.startswith("https://discord.gg/") for h, c in self.page.anchors))
 
     def test_hero_ctas(self):
-        self.assertIn("#mentorship", self.page.links)
+        self.assertIn("#idea", self.page.links)
         self.assertIn("#contact", self.page.links)
+
+    def test_artwork_and_script_exist(self):
+        self.assertTrue((ROOT / "assets/img/pipeline-world.webp").is_file())
+        self.assertTrue((ROOT / "assets/js/site.js").is_file())
+
+    def test_motion_accessibility(self):
+        self.assertIn("motion-toggle", self.page.ids)
+        self.assertIn("pipeline-play", self.page.ids)
+        css = (ROOT / "assets/css/site.css").read_text(encoding="utf-8")
+        self.assertIn("prefers-reduced-motion", css)
+        self.assertIn('html:not(.motion-ready)', css)
+
+    def test_pipeline_no_script_explanations(self):
+        html = (ROOT / 'index.html').read_text(encoding='utf-8')
+        fallback = re.search(r'<noscript>(.*?)</noscript>', html, re.S).group(1)
+        for explanation in ['Check details', 'Calculate total', 'Save document', 'Return result']:
+            self.assertIn(explanation, fallback)
 
 
 class NotFoundPage(unittest.TestCase):

@@ -79,3 +79,7 @@ html:not(.motion-ready) *,html:not(.motion-ready) *:before,html:not(.motion-read
 @media(max-width:1050px){.observation-heading-art .film-playback{opacity:.30}}
 @media(max-width:760px){.observation-heading-art .film-playback{left:-10px;right:-5px;bottom:-80px;opacity:.17;--film-frame:62px;--film-travel:-370px}.observation-heading-art .film-frame{height:58px}.observation-heading-art .film-frame .concept-icon{width:28px;height:28px}.observation-heading-art .film-strip{padding:16px 0}}
 .observation-heading-art{align-self:stretch}
+
+/* Rolling-shutter shear and directional blur appear only during fast rewind. */
+.film-emulsion{display:flex;gap:12px;width:max-content;transform-origin:center center;animation:film-rewind-optics 10s linear infinite;will-change:transform,filter}
+@keyframes film-rewind-optics{0%,74.9%{transform:skewX(0);filter:none}75%{transform:skewX(-2deg);filter:url(#film-rewind-soft)}77%{transform:skewX(-13deg);filter:url(#film-rewind-fast)}79.5%{transform:skewX(-18deg);filter:url(#film-rewind-fast)}82%{transform:skewX(-11deg);filter:url(#film-rewind-fast)}85%{transform:skewX(-16deg);filter:url(#film-rewind-fast)}87%{transform:skewX(-3deg);filter:url(#film-rewind-soft)}89%,100%{transform:skewX(0);filter:none}}

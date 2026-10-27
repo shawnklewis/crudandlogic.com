@@ -19,7 +19,7 @@ REQUIRED_FILES = [
 SECTION_IDS = ["top", "idea", "pipeline", "documents", "language", "architecture",
                "execution", "interface", "ai", "observation", "progress", "deep-dive", "contact"]
 COPY = ["Create, Read, Update, Delete", "CURRENT PROTOTYPE", "PLANNED ARCHITECTURE",
-        "FURTHER EXPLORATION", "one long-lived process per pipeline",
+        "FURTHER EXPLORATION", "connected worker processes",
         "Only CRUD workers touch the database", "deterministic query engine",
         "Only verifiers may dispose", "DESIGNED, NOT IMPLEMENTED"]
 EXTERNAL = re.compile(r"^(https?:|mailto:|tel:|data:|#|//)")

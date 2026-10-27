@@ -90,3 +90,6 @@ html:not(.motion-ready) *,html:not(.motion-ready) *:before,html:not(.motion-read
 @keyframes line-firework-launch{0%{stroke-dashoffset:12;opacity:0}3%{stroke-dashoffset:-30;opacity:.4}9%{stroke-dashoffset:-100;opacity:.3}12%,100%{stroke-dashoffset:-112;opacity:0}}
 @media(max-width:760px){.closing-fireworks{opacity:.45}.closing-fireworks svg{width:200%;max-width:none;margin-left:-50%}.line-firework{stroke-width:1.5}}
 @media(max-width:760px){.closing-fireworks .firework-0{transform:translateX(200px)}.closing-fireworks .firework-1{transform:translateX(-200px)}.closing-fireworks .firework-2{transform:translateX(150px)}.closing-fireworks .firework-3{transform:translateX(-150px)}}
+
+/* Leave clear space below footer content for the fixed animation control. */
+.site-footer{padding-bottom:calc(110px + env(safe-area-inset-bottom,0px))}

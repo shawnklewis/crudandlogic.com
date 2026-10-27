@@ -9,7 +9,7 @@ A vertical, illustrated concept guide for IT professionals who use app builders.
 - `assets/js/site.js`: pipeline walkthrough, motion controls and hero particles.
 - `assets/img/pipeline-world.webp`: generated cinematic hero artwork.
 
-The opening animates a generated still using slow camera motion and particle overlays. It is not generated video. The explanatory diagrams use real text and HTML/SVG. All content is available without scroll-triggered reveals. The global motion control persists in this browser; OS reduced-motion preferences are respected. Selecting a pipeline step pauses its automatic playback.
+The opening combines generated artwork with live canvas gates and individual flowing documents. Foreground gate frames occlude the sheets as they pass. The explanatory diagrams use real text and HTML/SVG. Concept panels translate and brighten in response to scroll position; they remain readable throughout. The global motion control freezes the hero and shows panels in their final position; OS reduced-motion preferences are respected. Selecting a pipeline step pauses its automatic playback. No JavaScript leaves a static, readable page.
 
 ## Check and preview
 

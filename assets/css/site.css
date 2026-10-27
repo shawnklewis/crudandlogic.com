@@ -8,3 +8,7 @@
 @media(max-width:360px){.sheet-back{transform:translate(16px,-5px) rotate(5deg)}.document-art .sheet{width:245px}.sheet-mid{transform:translate(8px,-2px) rotate(2deg)}h2{font-size:31px}.hero h1{font-size:62px}.chapter-nav{gap:18px}}
 html:not(.motion-ready) *,html:not(.motion-ready) *:before,html:not(.motion-ready) *:after{animation-play-state:paused!important;transition:none!important}.document-art{overflow:clip}.pipeline-fallback{padding:20px 35px;background:#0c171d;color:var(--muted);font-size:13px}.pipeline-fallback li{padding:8px 0}.pipeline-fallback b{color:var(--text)}
 @media(prefers-reduced-motion:reduce){html:not(.motion-ready){scroll-behavior:auto}html:not(.motion-ready) *,html:not(.motion-ready) *:before,html:not(.motion-ready) *:after{animation:none!important;transition:none!important}}
+
+/* The live canvas now owns the gate geometry and document movement. */
+.hero-image{animation:none;opacity:.22;filter:blur(2px)}#hero-particles{opacity:1}.hero-content{pointer-events:none}.hero-content a{pointer-events:auto}
+@media(max-width:760px){.hero-image{opacity:.16}.hero-foot{bottom:20px}.hero-content{margin-top:120px}.hero-sub{max-width:300px}}

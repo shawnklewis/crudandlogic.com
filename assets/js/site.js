@@ -96,7 +96,7 @@
   }
   function drawDocumentFlow() {
     const mobile = width <= 760;
-    const centerY = height * (mobile ? .79 : .52);
+    const centerY = height * (mobile ? .82 : .52);
     const startX = width * (mobile ? -.08 : .40);
     const endX = width * 1.14;
     const baseHeight = height * (mobile ? .24 : .59);

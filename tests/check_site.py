@@ -177,6 +177,11 @@ class IndexPage(unittest.TestCase):
                             for u in self.page.links), "Substack embed is missing")
         self.assertIn("I’ll tell you the day it’s real.", self.page.plain)
 
+    def test_analytics_beacon(self):
+        html = (ROOT / "index.html").read_text(encoding="utf-8")
+        self.assertIn("static.cloudflareinsights.com/beacon.min.js", html)
+        self.assertIn("e5d84d3ebbca4dd2806d5874fa1e1586", html, "site token missing")
+
     def test_hero_ctas(self):
         self.assertIn("#idea", self.page.links)
         self.assertIn("#contact", self.page.links)

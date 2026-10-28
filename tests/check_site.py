@@ -13,7 +13,8 @@ ROOT = Path(__file__).resolve().parent.parent
 
 REQUIRED_FILES = [
     "index.html", "404.html", "assets/css/site.css",
-    "assets/img/logo.webp", "assets/img/logo.jpg", "favicon.svg",
+    "assets/img/logo.webp", "assets/img/logo.jpg", "assets/img/social-card.jpg",
+    "favicon.svg",
     "robots.txt", "sitemap.xml", ".nojekyll", "README.md",
 ]
 SECTION_IDS = ["top", "idea", "pipeline", "documents", "language", "architecture",
@@ -181,6 +182,19 @@ class IndexPage(unittest.TestCase):
         html = (ROOT / "index.html").read_text(encoding="utf-8")
         self.assertIn("static.cloudflareinsights.com/beacon.min.js", html)
         self.assertIn("e5d84d3ebbca4dd2806d5874fa1e1586", html, "site token missing")
+
+    def test_social_card(self):
+        """WhatsApp and Teams will not render a WebP preview, and drop big files."""
+        p = self.page
+        img = p.meta.get("og:image", "")
+        self.assertTrue(img.endswith((".jpg", ".jpeg", ".png")), "og:image must be JPEG/PNG: " + img)
+        self.assertEqual(p.meta.get("og:image:width"), "1200")
+        self.assertEqual(p.meta.get("og:image:height"), "630")
+        self.assertEqual(p.meta.get("twitter:image"), img)
+        self.assertTrue(p.meta.get("og:site_name"))
+        local = ROOT / img.split("https://crudandlogic.com/")[1]
+        self.assertTrue(local.is_file(), local)
+        self.assertLess(local.stat().st_size, 300_000, "preview image too large to unfurl")
 
     def test_hero_ctas(self):
         self.assertIn("#idea", self.page.links)

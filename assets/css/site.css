@@ -182,3 +182,11 @@ html:not(.motion-ready) *,html:not(.motion-ready) *:before,html:not(.motion-read
 @supports (interpolate-size:allow-keywords){.deep-grid details::details-content{height:0;overflow:clip;opacity:0;transition:height .35s ease-in-out,opacity .25s ease-in-out,content-visibility .35s allow-discrete}.deep-grid details[open]::details-content{height:auto;opacity:1}}
 html.motion-paused .deep-grid details::details-content,html:not(.motion-ready) .deep-grid details::details-content{transition:none}
 @media(prefers-reduced-motion:reduce){.deep-grid details::details-content,.deep-grid summary span{transition:none}}
+
+/* Subscribe: Substack's embed is a white iframe that cannot be restyled from outside, so frame it deliberately instead of fighting it. */
+.subscribe-block{margin-top:56px;padding-top:34px;border-top:1px solid var(--line)}
+.subscribe-block h3{font-size:clamp(21px,2.3vw,28px);margin:0 0 10px}
+.subscribe-block p{max-width:54ch;margin:0 0 22px}
+.subscribe-block iframe{width:100%;max-width:480px;height:320px;border:1px solid var(--line);border-radius:10px;background:#fff;display:block;color-scheme:light}
+.subscribe-note{font-size:14px;opacity:.6;margin:16px 0 0}
+@media(max-width:760px){.subscribe-block{margin-top:40px;padding-top:26px}.subscribe-block iframe{height:340px}}

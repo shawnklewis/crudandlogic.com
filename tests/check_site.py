@@ -172,6 +172,11 @@ class IndexPage(unittest.TestCase):
         self.assertEqual(bad, [])
         self.assertTrue(any(h.startswith("https://discord.gg/") for h, c in self.page.anchors))
 
+    def test_subscribe_block(self):
+        self.assertTrue(any(u.startswith("https://crudandlogic.substack.com/embed")
+                            for u in self.page.links), "Substack embed is missing")
+        self.assertIn("I’ll tell you the day it’s real.", self.page.plain)
+
     def test_hero_ctas(self):
         self.assertIn("#idea", self.page.links)
         self.assertIn("#contact", self.page.links)

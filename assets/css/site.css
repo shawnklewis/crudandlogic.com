@@ -111,3 +111,74 @@ html:not(.motion-ready) *,html:not(.motion-ready) *:before,html:not(.motion-read
 /* Wayfinding: the chapter rail is the only navigation small screens get, so it stays in reach. */
 @media(max-width:1050px){.site-header nav a:last-child{display:flex}}
 @media(max-width:760px){html{scroll-padding-top:68px}.chapter-nav{position:sticky;top:0;z-index:9;-webkit-overflow-scrolling:touch;scrollbar-width:none}.chapter-nav::-webkit-scrollbar{display:none}.chapter-nav a:nth-child(4),.chapter-nav a:nth-child(5){display:flex}}
+
+/* Keep every chapter visible in sequence, with consistent labels and colour. */
+.chapter-nav{flex-wrap:nowrap;align-items:center;gap:clamp(14px,1.8vw,32px)}.chapter-nav a{flex-shrink:0;white-space:nowrap}
+.chapter-nav{flex-wrap:wrap;justify-content:flex-start;column-gap:30px;row-gap:0}
+@media(max-width:760px){.chapter-nav{flex-wrap:nowrap;overflow-x:auto}}
+
+/* Equal chapter slots keep the full contents list aligned across rows. */
+.chapter-nav{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));column-gap:20px;row-gap:0}.chapter-nav a{min-width:0;gap:10px;white-space:normal;align-items:center;height:100%}.chapter-nav a span{min-width:0}
+@media(min-width:1800px){.chapter-nav{grid-template-columns:repeat(12,minmax(0,1fr))}}
+@media(min-width:761px) and (max-width:1100px){.chapter-nav{grid-template-columns:repeat(4,minmax(0,1fr))}}
+@media(max-width:760px){.chapter-nav{display:grid;grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:185px;column-gap:20px;overflow-x:auto}.chapter-nav a{width:100%}}
+
+/* Give the five-stage business pipeline more room than the three-stage Unix example. */
+@media(min-width:1201px){.unix-lineage{grid-template-columns:minmax(0,3fr) minmax(0,5fr);gap:32px}}
+@media(max-width:1200px){.unix-lineage{grid-template-columns:minmax(0,1fr)}}
+
+/* Keep the first and last boxes inside the comparison’s equal outer padding. */
+.unix-lineage .unix-chain>span{min-width:0;flex:1 1 0;padding-inline:7px}.unix-lineage .unix-chain>b{flex-shrink:0}
+
+/* Balanced breathing room around both pipeline examples. */
+.unix-lineage{padding:28px 32px}.unix-lineage .unix-chain{gap:8px}.unix-lineage .unix-chain>span{padding-inline:8px}
+@media(min-width:1201px){.unix-lineage{grid-template-columns:minmax(0,1fr) minmax(0,1.9fr);gap:28px}}
+@media(max-width:760px){.unix-lineage{padding:22px 18px}}
+
+/* Centre the handoff indicator on the header text rather than its baseline. */
+.simulation-bar>span{display:inline-flex;align-items:center;gap:8px}.simulation-bar .status-dot{margin-right:0}
+
+/* The step label reveals first; supporting details follow as one quiet update. */
+#step-label{display:inline-block}
+
+/* Keep hardware labels comfortably inset and let long names wrap inside their cards. */
+.hardware-host{grid-template-columns:repeat(2,minmax(0,1fr))}.hardware-host .compute-node{display:flex;flex-direction:column}.compute-node figcaption{box-sizing:border-box;width:100%;min-width:0;padding:18px;flex:1}.compute-node figcaption b,.compute-node figcaption span{max-width:100%;white-space:normal;overflow-wrap:anywhere;word-break:normal}.compute-node figcaption b{text-wrap:balance}
+@media(max-width:760px){.compute-node figcaption{padding:15px 12px}}
+
+/* Original manufacturer product images, presented without colour alteration. */
+.compute-node img.product-photo{object-fit:contain;padding:15px;background:radial-gradient(ellipse,#21373d,#0c171c 75%)}.compute-node figcaption .photo-credit{display:block;margin-top:12px;font-size:14px;line-height:1.5;color:var(--muted);text-decoration:underline;text-underline-offset:3px;overflow-wrap:anywhere}
+
+.product-photo-frame{aspect-ratio:1;position:relative;overflow:hidden;background:radial-gradient(ellipse,#21373d,#0c171c 75%)}.compute-node .product-photo-frame img.blackhole-photo{position:absolute;width:320%;height:320%;max-width:none;left:-110%;top:-110%;padding:0;background:none}
+
+.compute-node .coral-photo-frame img.coral-photo{position:absolute;width:600%;height:auto;max-width:none;aspect-ratio:auto;left:-228%;top:-250%;object-fit:initial}
+
+/* Align each explanation with its host box, reserving the shared-contracts column. */
+.hardware-panel{--hardware-centre:130px}.hardware-map,.under-diagram.hardware-context{grid-template-columns:minmax(0,1fr) var(--hardware-centre,130px) minmax(0,1fr);column-gap:0}.hardware-context>p{min-width:0;margin:0}.hardware-context>p:first-child{grid-column:1}.hardware-context>p:last-child{grid-column:3}
+@media(max-width:1050px){.hardware-map,.under-diagram.hardware-context{--hardware-centre:105px}}
+@media(max-width:760px){.hardware-map,.under-diagram.hardware-context{grid-template-columns:minmax(0,1fr)}.hardware-context>p:first-child,.hardware-context>p:last-child{grid-column:1}}
+
+/* The architecture note belongs to the full hardware diagram. */
+#execution>.margin-note{width:100%;max-width:none;text-align:center}
+
+.transport-note{margin-top:34px;padding:24px 28px;border-left:2px solid var(--orange);background:#edb18208}.transport-note h3{font:500 25px/1.4 var(--display);margin:0 0 16px}.transport-note p{font-size:17px;line-height:1.8;color:var(--muted);max-width:100%}.transport-note p+p{margin-top:16px}@media(max-width:760px){.transport-note{padding:22px 18px}.transport-note h3{font-size:23px}}
+
+/* Centre the storage note beneath the complete system diagram. */
+#architecture>.margin-note{width:100%;max-width:none;text-align:center}
+
+/* Align exception icons to a shared top edge, independent of wrapped headings. */
+.exception-heading{align-items:flex-start}.exception-heading .concept-icon{flex-shrink:0}
+
+/* Verification breathes; decision messages visit the left branch, then the right. */
+.ai-gate>.concept-icon{transform-origin:center;animation:verify-shield-pulse 3s ease-in-out infinite}.decision-ball{fill:var(--orange);stroke:none;opacity:0;animation:decision-left 4.8s ease-in-out infinite}.decision-ball-right{fill:var(--mint);animation-name:decision-right}
+@keyframes verify-shield-pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.18)}}
+@keyframes decision-left{0%,3%{opacity:0;transform:translate(0,0)}7%{opacity:1;transform:translate(0,0)}18%{opacity:1;transform:translate(0,11px)}33%{opacity:1;transform:translate(-15px,11px)}43%{opacity:1;transform:translate(-15px,24px)}48%,100%{opacity:0;transform:translate(-15px,24px)}}
+@keyframes decision-right{0%,53%{opacity:0;transform:translate(0,0)}57%{opacity:1;transform:translate(0,0)}68%{opacity:1;transform:translate(0,11px)}83%{opacity:1;transform:translate(15px,11px)}93%{opacity:1;transform:translate(15px,24px)}98%,100%{opacity:0;transform:translate(15px,24px)}}
+
+/* Progress unfolds as three descending steps instead of a rigid row. */
+@media(min-width:761px){.roadmap{align-items:start}.roadmap article:nth-child(2){margin-top:32px}.roadmap article:nth-child(3){margin-top:64px}}
+
+/* Native disclosure panels animate in both directions, retaining keyboard behaviour. */
+.deep-grid details{interpolate-size:allow-keywords}.deep-grid summary span{display:inline-block;transform:rotate(0deg);transform-origin:center;transition:transform .35s ease-in-out}.deep-grid details[open] summary span{transform:rotate(45deg)}
+@supports (interpolate-size:allow-keywords){.deep-grid details::details-content{height:0;overflow:clip;opacity:0;transition:height .35s ease-in-out,opacity .25s ease-in-out,content-visibility .35s allow-discrete}.deep-grid details[open]::details-content{height:auto;opacity:1}}
+html.motion-paused .deep-grid details::details-content,html:not(.motion-ready) .deep-grid details::details-content{transition:none}
+@media(prefers-reduced-motion:reduce){.deep-grid details::details-content,.deep-grid summary span{transition:none}}

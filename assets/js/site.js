@@ -7,11 +7,16 @@
   const steps = Array.from(document.querySelectorAll('.flow-step'));
   const track = document.getElementById('flow-track');
   const marker = document.querySelector('.travelling-doc');
+  const handoffDuration = 1200;
+  marker.style.transition = `left ${handoffDuration}ms ease-in-out`;
+  const statusDot = document.querySelector('.simulation-bar .status-dot');
+  let handoffPulse;
+  let detailReveals = [];
   const data = [
     { label: 'RECEIVE ORDER', title: 'The document starts the journey.', description: 'A person or a connected system supplies the order. This example begins with an order page and its line items.', pages: ['Order details', 'Line items'], note: 'The same context travels with the work.' },
     { label: 'CHECK DETAILS', title: 'One worker checks the inputs.', description: 'The validation worker reads the order and line-item pages. It adds a validation page. A failed check follows a defined error route rather than continuing to pricing.', pages: ['Order details', 'Line items', 'Validation: passed'], note: 'This illustration follows the successful route.' },
     { label: 'CALCULATE TOTAL', title: 'Another worker applies the rules.', description: 'The pricing worker uses the relevant inputs and adds a pricing page. It does not hide database access inside its calculation.', pages: ['Order details', 'Line items', 'Validation: passed', 'Pricing result'], note: 'The business rule has a focused, testable job.' },
-    { label: 'SAVE DOCUMENT', title: 'A CRUD worker handles persistence.', description: 'The storage step preserves the checked document. In the proposed architecture, document files are versioned in Git and database lookups point back to them.', pages: ['Order details', 'Line items', 'Validation: passed', 'Pricing result', 'Storage reference'], note: 'Storage is separate from the pricing rule.' },
+    { label: 'SAVE DOCUMENT', title: 'A CRUD worker handles persistence.', description: 'The storage step preserves the checked document. In the proposed architecture, document files are kept under version control and database lookups point back to them.', pages: ['Order details', 'Line items', 'Validation: passed', 'Pricing result', 'Storage reference'], note: 'Storage is separate from the pricing rule.' },
     { label: 'RETURN RESULT', title: 'The result becomes useful to an actor.', description: 'The gateway returns the result to a person or another system. A person might read a document; an integration can continue its own work.', pages: ['Order details', 'Line items', 'Validation: passed', 'Pricing result', 'Storage reference', 'Result summary'], note: 'The flow is explicit from input to output.' }
   ];
   let paused = preference.matches, demoPaused = false, index = 0, pipelineVisible = false, heroVisible = true, timer;
@@ -48,7 +53,16 @@
   const particles = Array.from({ length: 48 }, (_, i) => ({ x: (i * .61803398875) % 1, y: (i * .754877666) % 1, size: i % 4 === 0 ? 1.5 : .7, speed: .000015 + (i % 5) * .000004 }));
   try { const saved = localStorage.getItem('cal-motion'); if (saved !== null) paused = saved === 'paused'; } catch (_) {}
   function renderStep(next) {
+    const changed = next !== index;
     index = next; const d = data[index];
+    if (changed && !paused && !preference.matches && statusDot && typeof statusDot.animate === 'function') {
+      if (handoffPulse) handoffPulse.cancel();
+      handoffPulse = statusDot.animate([
+        { background: '#86e6cd', boxShadow: '0 0 12px #86e6cd66', transform: 'scale(1)' },
+        { background: '#e6fff7', boxShadow: '0 0 8px #e6fff7, 0 0 22px #86e6cddd', transform: 'scale(1.5)', offset: .3 },
+        { background: '#86e6cd', boxShadow: '0 0 12px #86e6cd66', transform: 'scale(1)' }
+      ], { duration: 850, easing: 'ease-out' });
+    }
     steps.forEach((step, i) => { step.classList.toggle('active', i === index); step.setAttribute('aria-pressed', String(i === index)); });
     document.getElementById('step-label').textContent = `STEP 0${index + 1} / ${d.label}`;
     document.getElementById('step-title').textContent = d.title;
@@ -56,6 +70,24 @@
     document.getElementById('document-note').textContent = d.note;
     document.getElementById('document-pages').replaceChildren(...d.pages.map(page => { const li = document.createElement('li'); li.textContent = page; return li; }));
     marker.style.left = `${steps[index].offsetLeft + steps[index].offsetWidth / 2 - 9}px`;
+    if (changed) {
+      detailReveals.forEach(animation => animation.cancel());
+      detailReveals = [];
+      const label = document.getElementById('step-label');
+      if (!paused && !preference.matches && typeof label.animate === 'function') {
+        [label, document.getElementById('step-title')].forEach(element => {
+          detailReveals.push(element.animate([
+            { clipPath: 'inset(0 100% 0 0)' },
+            { clipPath: 'inset(0 0% 0 0)' }
+          ], { duration: handoffDuration, easing: 'ease-in-out' }));
+        });
+        document.querySelectorAll('#step-description, .document-preview').forEach(element => {
+          detailReveals.push(element.animate([
+            { opacity: 0 }, { opacity: 1 }
+          ], { duration: 260, delay: handoffDuration, fill: 'backwards', easing: 'ease-in-out' }));
+        });
+      }
+    }
   }
   function schedule() {
     clearInterval(timer);
@@ -66,6 +98,8 @@
   }
   function applyMotion() {
     root.classList.toggle('motion-paused', paused);
+    if (paused && handoffPulse) handoffPulse.cancel();
+    if (paused) { detailReveals.forEach(animation => animation.cancel()); detailReveals = []; }
     motionToggle.setAttribute('aria-pressed', String(paused));
     motionToggle.textContent = paused ? 'Resume animation ▷' : 'Pause animation Ⅱ'; schedule();
     if (paused) { cancelAnimationFrame(frame); frame = 0; draw(false); } else start();
